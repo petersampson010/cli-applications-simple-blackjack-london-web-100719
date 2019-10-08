@@ -26,7 +26,6 @@ end
 def initial_round
   total = deal_card + deal_card
   display_card_total(total)
-  total
 end 
 
 def invalid_command
@@ -36,26 +35,27 @@ end
 def hit?(total)
   prompt_user
   user_input = get_user_input
-  if user_input == 'h'
+  if user_input == 's'
+    return total
+  elsif user_input == 'h'
     total += deal_card
-    display_card_total(total)
-  elsif user_input == 's'
-    return total 
+    return total
   else 
-    invalid_command
+    puts "Please enter a valid command"
     hit?(total)
   end 
 end 
+  
+  
 
 def runner 
   welcome
   total = initial_round
-  total = hit?(total)
-  if total > 21
-    end_game(total)
-  else 
-    hit?(total)
+  until total > 21 do 
+    total = hit?(total)
   end 
+end_game(total)
+display_card_total(total)
 end 
 
 
